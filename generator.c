@@ -54,13 +54,14 @@ void generator_fd_dir(struct para_pool *pool, char *direct, int *index)
 					count++;
 
 				abs_dir = (char*)malloc((count + 2) * sizeof(char));
+				pool->dirs_pool[*index] = (char*)malloc((count + 2) * sizeof(char));
 
 				strcpy(abs_dir, direct);
 				strcat(abs_dir, "/");
 				strcat(abs_dir, dir->d_name);
 
 				pool->fd_pool[*index] = open(abs_dir, O_RDONLY);
-				pool->dirs_pool[*index] = abs_dir;
+				strcpy(pool->dirs_pool[*index], direct);
 				(*index)++;
 
 				regular = determine_dir(abs_dir);
