@@ -49,6 +49,9 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 				count = 0;
 				for(i = 0; dir->d_name[i] != '\0'; i++)
 					count++;
+				
+				for(i = 0; direct[i] != '\0'; i++)
+					count++;
 
 				abs_dir = (char*)malloc((count + 2) * sizeof(char));
 
@@ -60,11 +63,16 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 				(*index)++;
 
 				regular = determine_dir(abs_dir);
+				
 
 				if (regular == 0)
 					generator_fd(pool, abs_dir, index);
+
+				free(abs_dir);
 			}
 		}
+
+		closedir(d);
 	}
 }
 
@@ -182,7 +190,7 @@ void generator_init_fd(char *direct, int *index)
 		}
 	}
 }
-void generator_mod()
+void generator_mod(struct para_pool *pool)
 {
-
+	
 }
