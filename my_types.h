@@ -13,6 +13,6 @@ struct link
 struct para_pool
 {
 	int *fd_pool;
-	char *dirs[1000];
+	char *dirs_pool[1000];
 	int *mode;
 };

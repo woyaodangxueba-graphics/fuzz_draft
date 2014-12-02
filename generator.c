@@ -67,9 +67,42 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 }
 
 /* Generate an array of directories for testing. */
-void generator_dir()
+void generator_dir(char *direct, int *index)
 {
-	
+	int regular;
+	int count, i;
+	char *abs_dir;
+	DIR *d;
+	struct sirent *dir;
+
+	d = opendir(direct);
+
+	if(d != NULL)
+	{
+		while((dir = readdir(d)) != NULL)
+		{
+			if (strcmp(dir->d_name, ".") != 0 && strcmp(dir->d_name, "..") != 0)
+			{
+				count = 0;
+				for(i = 0; dir->d_name[i] != '\0'; i++)
+					count++;
+
+				abs_dir = (char*)malloc((count + 2) * sizeof(char));
+
+				strcpy(abs_dir, direct);
+				strcat(abs_dir, "/");
+				strcat(abs_dir, dir->d_name);
+
+				para_pool->dirs_pool[*index] = abs_dir;
+				(*index)++;
+
+				regular = determine_dir(abs_dir);
+
+				if (regular == 0)
+					generator_fd(abs_dir, index);
+			}
+		}
+	}
 }
 
 //recursively loop a absolute path, count all files.
