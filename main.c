@@ -50,9 +50,9 @@ int main (int argc, char *argv[])
 	Pool->fd_pool = ( int * )malloc(sizeof(int)* (files_number + 3 + 100));
 	
 	//2. generator file descriptors pool
-	int fd_index = 0, level = 0;
-	int *fd_index_p = &fd_index, *level_p = &level;
-	generator_fd(Pool, dir_path, fd_index_p, level_p);
+	int fd_index = 0;
+	int *fd_index_p = &fd_index;
+	generator_fd(Pool, dir_path, fd_index_p);
 	
 	// loop over remaining fd[] and full them with random numbers
 	srand(time(NULL));
