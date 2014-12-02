@@ -14,7 +14,7 @@
 // }
 
 
-// help function to determine whether a file is regular or a directory 
+// helper function to determine whether a file is a regular file or a directory 
 int determine_dir(char direct[])
 {
 	struct stat status;
@@ -64,6 +64,12 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 			}
 		}
 	}
+}
+
+/* Generate an array of directories for testing. */
+void generator_dir()
+{
+	
 }
 
 //recursively loop a absolute path, count all files.
