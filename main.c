@@ -66,29 +66,31 @@ int main (int argc, char *argv[])
 	/*******************************************/
 	/*******************syscall()***************/
 	/*******************************************/
-	
-	int para_1 = rand()%files_number;
-	char tmp[32];
-	char *para_2 = tmp;
-	
-	int para_3 = rand()%512;
-	fprintf(stdout,"calling sys_read(%d,%x,%d)\n", para_1, (unsigned int)&tmp, para_3);
-	
-	int ret = 0;
-	if (para_1)
+	while(1)
 	{
-		ret = syscall(SYS_read, para_1, para_2, para_3);
-		
-		if (ret == -1)
-		{
-		//int errsv = errno;
-		fprintf(stdout, "sys_read failed with errno = %d\n", errno);
-		}else 
-		{
-		fprintf(stdout, "sys_read success with %s\n", para_2 );
-		}
-	}
 	
-
+		int para_1 = Pool->fd_pool[rand()%(files_number + 3 + 100)];
+		char tmp[32];
+		char *para_2 = tmp;
+	
+		int para_3 = rand()%512;
+		fprintf(stdout,"calling sys_read(%d,%x,%d)\n", para_1, (unsigned int)&tmp, para_3);
+	
+		int ret = 0;
+		if (para_1)
+		{
+			ret = syscall(SYS_read, para_1, para_2, para_3);
+		
+			if (ret == -1)
+			{
+			//int errsv = errno;
+			fprintf(stdout, "sys_read failed with errno = %d\n", errno);
+			}else 
+			{
+			fprintf(stdout, "sys_read success with %s\n", para_2 );
+			}
+		}
+	
+	}
 
 }
