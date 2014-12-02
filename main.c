@@ -52,12 +52,13 @@ int main (int argc, char *argv[])
 	//2. generator file descriptors pool
 	int fd_index = 0;
 	int *fd_index_p = &fd_index;
-	generator_fd(Pool, dir_path, fd_index_p);
+	generator_fd_dir(Pool, dir_path, fd_index_p);
+	int cur_dir_num = fd_index + 1;
 	
 	// loop over remaining fd[] and full them with random numbers
 	srand(time(NULL));
 	    
-	while (fd_index< files_number)
+	while (fd_index < files_number)
 	{
 		Pool->fd_pool[fd_index] = rand();
 		fd_index++;
@@ -98,7 +99,10 @@ int main (int argc, char *argv[])
 	
 	}
 */
-	
+	int k; 
+	for(k = 0; k < cur_dir_num; k++)
+		free(Pool->dirs_pool[k]);
+		
 	free(Pool->fd_pool);
 
 
