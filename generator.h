@@ -26,7 +26,7 @@ struct para_pool
 };
 
 void generator_init(char *direct, int *files_number);
-void generator_fd(struct para_pool *pool, char *direct, int *index);
+void generator_fd(struct para_pool *pool, char *direct, int *index, int *level);
 void generator_dir(struct para_pool *pool, char *direct, int *index);
 void generator_init_fd(char *direct, int *index);
 void generator_mod();
