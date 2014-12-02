@@ -41,13 +41,13 @@ int main (int argc, char *argv[])
 	/*******************************************/
 	//1. figure out memory needed for para_pool and malloc to it
 	
-	struct para_pool *Pool;
+	struct para_pool *Pool = (struct para_pool*)malloc(sizeof(struct para_pool));
 	int files_number = 0;
 	
 	generator_init(dir_path, &files_number);
 	
 	//malloc additional 3 for fd 0,1,2, 100 for "invalid_pool"
-	Pool->fd_pool = ( int * )malloc(sizeof(int)* (files_number + 3 + 100));
+	Pool->fd_pool = ( int * )malloc(sizeof(int) * (files_number + 3 + 100));
 	
 	//2. generator file descriptors pool
 	int fd_index = 0;
@@ -62,10 +62,15 @@ int main (int argc, char *argv[])
 		Pool->fd_pool[fd_index] = rand();
 		fd_index++;
 	}
+
+	int t;
+	for(t = 0; t < files_number + 3 + 100; t++)
+		printf("File descriptors # %d : %d \n\n", t, Pool->fd_pool[t]);
 	
 	/*******************************************/
 	/*******************syscall()***************/
 	/*******************************************/
+/*
 	while(1)
 	{
 	
@@ -83,14 +88,18 @@ int main (int argc, char *argv[])
 		
 			if (ret == -1)
 			{
-			//int errsv = errno;
-			fprintf(stdout, "sys_read failed with errno = %d\n", errno);
+				//int errsv = errno;
+				fprintf(stdout, "sys_read failed with errno = %d\n", errno);
 			}else 
 			{
-			fprintf(stdout, "sys_read success with %s\n", para_2 );
+				fprintf(stdout, "sys_read success with %s\n", para_2 );
 			}
 		}
 	
 	}
+*/
+	
+	free(Pool->fd_pool);
+
 
 }

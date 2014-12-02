@@ -63,6 +63,7 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 				(*index)++;
 
 				regular = determine_dir(abs_dir);
+				printf("Dir: %s \n regular = %d \n\n", abs_dir, regular);
 				
 
 				if (regular == 0)
@@ -110,9 +111,13 @@ void generator_dir(struct para_pool *pool, char *direct, int *index)
 
 				if (regular == 0)
 					generator_dir(pool, abs_dir, index);
+
+				free(abs_dir);
+
 			}
 		}
 	}
+	closedir(d);
 }
 
 //recursively loop a absolute path, count all files.
@@ -135,6 +140,9 @@ void generator_init(char *direct, int *files_number)
 				count = 0;
 				for(i = 0; dir->d_name[i] != '\0'; i++)
 					count++;
+				
+				for(i = 0; direct[i] != '\0'; i++)
+					count++;
 
 				abs_dir = (char*)malloc((count + 2) * sizeof(char));
 
@@ -145,12 +153,16 @@ void generator_init(char *direct, int *files_number)
 				(*files_number)++;
 
 				regular = determine_dir(abs_dir);
+				printf("Good \n");
 
 				if (regular == 0)
 					generator_init_fd(abs_dir, files_number);
+
+				free(abs_dir);
 			}
 		}
 	}
+	closedir(d);
 }
 
 void generator_init_fd(char *direct, int *index)
@@ -172,6 +184,9 @@ void generator_init_fd(char *direct, int *index)
 				count = 0;
 				for(i = 0; dir->d_name[i] != '\0'; i++)
 					count++;
+				
+				for(i = 0; direct[i] != '\0'; i++)
+					count++;
 
 				abs_dir = (char*)malloc((count + 2) * sizeof(char));
 
@@ -186,11 +201,14 @@ void generator_init_fd(char *direct, int *index)
 
 				if (regular == 0)
 					generator_init_fd(abs_dir, index);
+				free(abs_dir);
 			}
 		}
 	}
+	closedir(d);
 }
 void generator_mod(struct para_pool *pool)
 {
 	
 }
+
