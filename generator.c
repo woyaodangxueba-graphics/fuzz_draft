@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include "generator.h"
 // struct link *fds;
-// fds = (* int)malloc((sizeof(struct link));
+// fds = malloc((sizeof(struct link));
 // 
 // int determine_num()
 // {

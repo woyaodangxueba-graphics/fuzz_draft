@@ -47,7 +47,7 @@ int main (int argc, char *argv[])
 	generator_init(dir_path, &files_number);
 	
 	//malloc additional 3 for fd 0,1,2, 100 for "invalid_pool"
-	Pool->fd_pool = (* int )malloc(sizeof(int)* (files_number + 3 + 100));
+	Pool->fd_pool = ( int * )malloc(sizeof(int)* (files_number + 3 + 100));
 	
 	//2. generator file descriptors pool
 	int fd_index = 0;
