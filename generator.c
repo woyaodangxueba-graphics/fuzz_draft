@@ -30,7 +30,7 @@ int determine_dir(char direct[])
 }
 
 //recursively loop a absolute path, open all files and returns file descriptors to pool->fd_pool.
-void generator_fd(struct para_pool *pool, char *direct, int *index)
+void generator_fd_dir(struct para_pool *pool, char *direct, int *index)
 {
 	int regular = 0;
 	int count, i;
@@ -60,6 +60,7 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 				strcat(abs_dir, dir->d_name);
 
 				pool->fd_pool[*index] = open(abs_dir, O_RDONLY);
+				pool->dirs_pool[*index] = abs_dir;
 				(*index)++;
 
 				regular = determine_dir(abs_dir);
@@ -78,7 +79,7 @@ void generator_fd(struct para_pool *pool, char *direct, int *index)
 }
 
 /* Generate an array of directories for testing. */
-void generator_dir(struct para_pool *pool, char *direct, int *index)
+/*void generator_dir(struct para_pool *pool, char *direct, int *index)
 {
 	int regular;
 	int count, i;
@@ -119,6 +120,7 @@ void generator_dir(struct para_pool *pool, char *direct, int *index)
 	}
 	closedir(d);
 }
+*/
 
 //recursively loop a absolute path, count all files.
 void generator_init(char *direct, int *files_number)
