@@ -1,7 +1,7 @@
 #cs544 fuzzing project makefile by Li Li
 
 CC = gcc
-CFLAGS = -Wall -std=c99 -I.
+CFLAGS = -Wall -std=gnu99
 #when want to play with pthread add this
 LDFLAGS = -pthread 
 
