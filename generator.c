@@ -101,11 +101,7 @@ void generator_dir(struct para_pool *pool, char *direct, int *index)
 				regular = determine_dir(abs_dir);
 
 				if (regular == 0)
-<<<<<<< HEAD
 					generator_dir(pool, abs_dir, index);
-=======
-					generator_dir(abs_dir, index);
->>>>>>> FETCH_HEAD
 			}
 		}
 	}

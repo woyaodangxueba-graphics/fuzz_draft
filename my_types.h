@@ -15,5 +15,4 @@ struct para_pool
 	int *fd_pool;
 	char *dirs_pool[1000];
 	int *mode_pool[1000];
-	mode_t 
 };
