@@ -99,7 +99,7 @@ void generator_dir(char *direct, int *index)
 				regular = determine_dir(abs_dir);
 
 				if (regular == 0)
-					generator_fd(abs_dir, index);
+					generator_dir(abs_dir, index);
 			}
 		}
 	}
