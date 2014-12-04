@@ -65,11 +65,11 @@ void generator_fd_dir(struct para_pool *pool, char *direct, int *index)
 				(*index)++;
 
 				regular = determine_dir(abs_dir);
-				printf("Dir: %s \n regular = %d \n\n", abs_dir, regular);
+				//printf("Dir: %s \n regular = %d \n\n", abs_dir, regular);
 				
 
 				if (regular == 0)
-					generator_fd(pool, abs_dir, index);
+					generator_fd_dir(pool, abs_dir, index);
 
 				free(abs_dir);
 			}
@@ -156,7 +156,7 @@ void generator_init(char *direct, int *files_number)
 				(*files_number)++;
 
 				regular = determine_dir(abs_dir);
-				printf("Good \n");
+				//printf("Good \n");
 
 				if (regular == 0)
 					generator_init_fd(abs_dir, files_number);
@@ -212,6 +212,13 @@ void generator_init_fd(char *direct, int *index)
 }
 void generator_mod(struct para_pool *pool)
 {
+	mode_t tmp[] = {S_ISUID, S_ISGID, S_IRUSR, S_IWUSR, S_IXUSR, S_IREAD, S_IWRITE, S_IEXEC, S_IRWXG, S_IRGRP, S_IWGRP, S_IXGRP, S_IRWXO, 
+			S_IROTH, S_IWOTH, S_IXOTH, S_IFMT, S_IFIFO, S_IFCHR, S_IFDIR, S_IFBLK, S_IFREG, S_IFLNK, S_IFSOCK, S_ISVTX, S_BLKSIZE,  DEFFILEMODE};
 	
+	int i;
+	for(i = 0; i < 27; i++)
+	{
+		pool->mode_pool[i] = tmp[i];
+	}  
 }
 
